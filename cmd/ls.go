@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/hlts2/go-check-database-users/dao/databases/config"
+	"github.com/hlts2/go-check-database-users/dao/factories"
 	"github.com/spf13/cobra"
 )
 
@@ -32,5 +34,13 @@ func init() {
 }
 
 func ls(cmd *cobra.Command, args []string) error {
+	c := config.Config{
+		Host:     host,
+		Port:     port,
+		User:     user,
+		Password: password,
+	}
+
+	userDao := factories.FactoryUserDao(c)
 	return nil
 }

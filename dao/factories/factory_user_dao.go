@@ -14,6 +14,8 @@ func FactoryUserDao(s string, c *config.Config) interfaces.UserDao {
 		i = mysql.UserDaoImpl{
 			mysql.NewMysqlConfig(c),
 		}
+	case "postgre":
+		//TODO
 	default:
 		break
 	}
