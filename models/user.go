@@ -1,6 +1,6 @@
 package models
 
-//User replesent mysql.user table
+//User represents mysq.user table
 type User struct {
 	Host string
 	Name string
