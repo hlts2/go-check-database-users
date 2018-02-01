@@ -41,6 +41,6 @@ func ls(cmd *cobra.Command, args []string) error {
 		Password: password,
 	}
 
-	userDao := factories.FactoryUserDao(c)
+	_ = factories.FactoryUserDao("mysql", &c)
 	return nil
 }
