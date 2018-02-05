@@ -4,7 +4,7 @@ import (
 	"github.com/hlts2/go-check-database-users/models"
 )
 
-//UserDao is User Dao interface
+//UserDao is user table dao interface
 type UserDao interface {
 	GetAll() (models.Users, error)
 }

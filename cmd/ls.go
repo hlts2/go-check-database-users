@@ -41,6 +41,13 @@ func ls(cmd *cobra.Command, args []string) error {
 		Password: password,
 	}
 
-	_ = factories.FactoryUserDao("mysql", &c)
+	dao := factories.FactoryUserDao("mysql", &c)
+
+	users, err := dao.GetAll()
+	if err != nil {
+		return err
+	}
+
+	fmt.Println(users)
 	return nil
 }

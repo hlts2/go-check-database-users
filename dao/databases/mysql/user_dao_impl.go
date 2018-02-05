@@ -14,12 +14,11 @@ type UserDaoImpl struct {
 }
 
 //GetAll returns User slice
-func (i UserDaoImpl) GetAll() (models.Users, error) {
-	db, err := sql.Open("mysql", i.DSN())
+func (u UserDaoImpl) GetAll() (models.Users, error) {
+	db, err := sql.Open("tcp", u.DSN())
 	if err != nil {
 		return nil, err
 	}
-	defer db.Close()
 
 	rows, err := db.Query("SELECT Host, User FROM mysql.user")
 	if err != nil {
@@ -30,10 +29,13 @@ func (i UserDaoImpl) GetAll() (models.Users, error) {
 	for rows.Next() {
 		var user models.User
 
-		if err := rows.Scan(&user.Host, &user.Name); err != nil {
+		err := rows.Scan(&user.Host, &user.Name)
+		if err != nil {
 			return nil, err
 		}
+
 		users = append(users, user)
 	}
+
 	return users, nil
 }
