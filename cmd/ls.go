@@ -3,7 +3,9 @@ package cmd
 import (
 	"fmt"
 	"os"
+	"time"
 
+	"github.com/briandowns/spinner"
 	"github.com/hlts2/go-check-database-users/dao/databases/config"
 	"github.com/hlts2/go-check-database-users/dao/factories"
 	"github.com/olekukonko/tablewriter"
@@ -42,6 +44,10 @@ func ls(cmd *cobra.Command, args []string) error {
 		Password: password,
 	}
 
+	s := spinner.New(spinner.CharSets[9], 100*time.Millisecond)
+	s.Start()
+	defer s.Stop()
+
 	dao := factories.FactoryUserDao("mysql", &c)
 
 	users, err := dao.GetAll()
@@ -55,6 +61,9 @@ func ls(cmd *cobra.Command, args []string) error {
 	for _, v := range users {
 		table.Append([]string{v.Host, v.Name})
 	}
+
+	//In order to ensure the progress display area
+	fmt.Println("")
 	table.Render()
 
 	return nil
