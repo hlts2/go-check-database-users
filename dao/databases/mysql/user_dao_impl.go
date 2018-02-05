@@ -39,3 +39,11 @@ func (u UserDaoImpl) GetAll() (models.Users, error) {
 
 	return users, nil
 }
+
+func (u UserDaoImpl) IsConnect() bool {
+	_, err := sql.Open("mysql", u.DSN())
+	if err != nil {
+		return false
+	}
+	return true
+}

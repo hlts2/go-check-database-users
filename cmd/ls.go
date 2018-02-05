@@ -23,19 +23,11 @@ var lsCmd = &cobra.Command{
 	},
 }
 
-var host string
-var port int
-var user string
-var password string
-
 func init() {
-	lsCmd.Flags().StringVarP(&host, "Host", "H", "localhost", "Hostname（localhost）")
-	lsCmd.Flags().IntVarP(&port, "port", "p", 3306, "Port（3306）")
-	lsCmd.Flags().StringVarP(&user, "user", "u", "root", "Username（root)")
-	lsCmd.Flags().StringVarP(&password, "password", "P", "", "Password")
 	rootCmd.AddCommand(lsCmd)
 }
 
+//Execute ls command
 func ls(cmd *cobra.Command, args []string) error {
 	c := config.Config{
 		Host:     host,
