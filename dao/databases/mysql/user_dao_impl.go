@@ -14,7 +14,7 @@ type UserDaoImpl struct {
 }
 
 //GetAll returns User slice
-func (u UserDaoImpl) GetAll() (models.Users, error) {
+func (u UserDaoImpl) GetAllUsers() (models.Users, error) {
 	db, err := sql.Open("mysql", u.DSN())
 	if err != nil {
 		return nil, err
@@ -40,10 +40,21 @@ func (u UserDaoImpl) GetAll() (models.Users, error) {
 	return users, nil
 }
 
-func (u UserDaoImpl) IsConnect() bool {
-	_, err := sql.Open("mysql", u.DSN())
+func (u UserDaoImpl) GetUser(name string, host string) (*models.User, error) {
+	db, err := sql.Open("mysql", u.DSN())
 	if err != nil {
-		return false
+		return nil, err
 	}
-	return true
+	defer db.Close()
+
+	stm, err := db.Prepare("SELECT Host, User From mysql.user WHERE Host = ? AND User = ?")
+	if err != nil {
+		return nil, err
+	}
+	defer stm.Close()
+
+	user := new(models.User)
+	stm.QueryRow(name, host).Scan(user.Host, user.Name)
+
+	return user, nil
 }

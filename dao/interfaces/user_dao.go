@@ -6,6 +6,6 @@ import (
 
 //UserDao is user table dao interface
 type UserDao interface {
-	GetAll() (models.Users, error)
-	IsConnect() bool
+	GetAllUsers() (models.Users, error)
+	GetUser(*models.User, error)
 }
