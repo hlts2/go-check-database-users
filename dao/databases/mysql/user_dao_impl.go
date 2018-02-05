@@ -15,7 +15,7 @@ type UserDaoImpl struct {
 
 //GetAll returns User slice
 func (u UserDaoImpl) GetAll() (models.Users, error) {
-	db, err := sql.Open("tcp", u.DSN())
+	db, err := sql.Open("mysql", u.DSN())
 	if err != nil {
 		return nil, err
 	}

@@ -6,6 +6,7 @@ import (
 
 	"github.com/hlts2/go-check-database-users/dao/databases/config"
 	"github.com/hlts2/go-check-database-users/dao/factories"
+	"github.com/olekukonko/tablewriter"
 	"github.com/spf13/cobra"
 )
 
@@ -48,6 +49,13 @@ func ls(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
-	fmt.Println(users)
+	table := tablewriter.NewWriter(os.Stdout)
+	table.SetHeader([]string{"Host", "Name"})
+
+	for _, v := range users {
+		table.Append([]string{v.Host, v.Name})
+	}
+	table.Render()
+
 	return nil
 }
