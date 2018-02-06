@@ -25,7 +25,8 @@ func (u UserDaoImpl) GetAllUsers() (models.Users, error) {
 		return nil, err
 	}
 
-	users := make(models.Users, 1)
+	//users := make(models.Users, 1)
+	var users models.Users
 	for rows.Next() {
 		var user models.User
 
@@ -53,8 +54,11 @@ func (u UserDaoImpl) GetUser(accountName string, accountHost string) (*models.Us
 	}
 	defer stm.Close()
 
-	user := new(models.User)
-	stm.QueryRow(accountName, accountHost).Scan(user.Host, user.Name)
+	var user models.User
+	err = stm.QueryRow(accountHost, accountName).Scan(&user.Host, &user.Name)
+	if err == sql.ErrNoRows {
+		return nil, nil
+	}
 
-	return user, nil
+	return &user, nil
 }
