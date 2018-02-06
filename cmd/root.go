@@ -15,7 +15,10 @@ var rootCmd = &cobra.Command{
 	Use:   "go-check-mysql-users",
 	Short: "A CLI tool for checking mysql user",
 	Run: func(cmd *cobra.Command, args []string) {
-		root(cmd, args)
+		if err := root(cmd, args); err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
 	},
 }
 
@@ -54,9 +57,12 @@ func root(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
-	if user == nil {
-		fmt.Println("")
+	if user != nil {
+		fmt.Printf("Database User OK: user '%s'@'%s' exist\n", accountName, accountHost)
+	} else {
+		fmt.Printf("Database User NG: user '%s'@'%s' not found\n", accountName, accountHost)
 	}
+
 	return nil
 }
 
