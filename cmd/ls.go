@@ -42,7 +42,7 @@ func ls(cmd *cobra.Command, args []string) error {
 
 	dao := factories.FactoryUserDao("mysql", &c)
 
-	users, err := dao.GetAll()
+	users, err := dao.GetAllUsers()
 	if err != nil {
 		return err
 	}

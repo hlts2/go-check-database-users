@@ -40,7 +40,7 @@ func (u UserDaoImpl) GetAllUsers() (models.Users, error) {
 	return users, nil
 }
 
-func (u UserDaoImpl) GetUser(name string, host string) (*models.User, error) {
+func (u UserDaoImpl) GetUser(accountName string, accountHost string) (*models.User, error) {
 	db, err := sql.Open("mysql", u.DSN())
 	if err != nil {
 		return nil, err
@@ -54,7 +54,7 @@ func (u UserDaoImpl) GetUser(name string, host string) (*models.User, error) {
 	defer stm.Close()
 
 	user := new(models.User)
-	stm.QueryRow(name, host).Scan(user.Host, user.Name)
+	stm.QueryRow(accountName, accountHost).Scan(user.Host, user.Name)
 
 	return user, nil
 }

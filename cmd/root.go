@@ -36,7 +36,7 @@ func init() {
 }
 
 //Execute root command
-func root(cmd *cobra.Command, args []string) {
+func root(cmd *cobra.Command, args []string) error {
 	c := config.Config{
 		Host:     host,
 		Port:     port,
@@ -49,10 +49,15 @@ func root(cmd *cobra.Command, args []string) {
 	defer s.Stop()
 
 	dao := factories.FactoryUserDao("mysql", &c)
-	ok := dao.IsConnect()
-	if ok {
-		//TODO write message
+	user, err := dao.GetUser(accountName, accountHost)
+	if err != nil {
+		return err
 	}
+
+	if user == nil {
+		fmt.Println("")
+	}
+	return nil
 }
 
 //Execute run command

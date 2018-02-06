@@ -7,5 +7,5 @@ import (
 //UserDao is user table dao interface
 type UserDao interface {
 	GetAllUsers() (models.Users, error)
-	GetUser(*models.User, error)
+	GetUser(string, string) (*models.User, error)
 }
