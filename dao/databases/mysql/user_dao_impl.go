@@ -3,6 +3,7 @@ package mysql
 import (
 	"database/sql"
 
+	"github.com/go-gorp/gorp"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/hlts2/go-check-database-users/dao/databases/config"
 	"github.com/hlts2/go-check-database-users/models"
@@ -19,23 +20,13 @@ func (u UserDaoImpl) GetAllUsers() (models.Users, error) {
 	if err != nil {
 		return nil, err
 	}
+	dbmap := &gorp.DbMap{Db: db, Dialect: gorp.MySQLDialect{}}
+	defer dbmap.Db.Close()
 
-	rows, err := db.Query("SELECT Host, User FROM mysql.user")
+	var users models.Users
+	_, err = dbmap.Select(&users, "SELECT Host, User FROM mysql.user")
 	if err != nil {
 		return nil, err
-	}
-
-	//users := make(models.Users, 1)
-	var users models.Users
-	for rows.Next() {
-		var user models.User
-
-		err := rows.Scan(&user.Host, &user.Name)
-		if err != nil {
-			return nil, err
-		}
-
-		users = append(users, user)
 	}
 
 	return users, nil
