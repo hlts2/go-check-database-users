@@ -37,18 +37,13 @@ func (u UserDaoImpl) GetUser(accountName string, accountHost string) (*models.Us
 	if err != nil {
 		return nil, err
 	}
-	defer db.Close()
-
-	stm, err := db.Prepare("SELECT Host, User From mysql.user WHERE Host = ? AND User = ?")
-	if err != nil {
-		return nil, err
-	}
-	defer stm.Close()
+	dbmap := &gorp.DbMap{Db: db, Dialect: gorp.MySQLDialect{}}
+	defer dbmap.Db.Close()
 
 	var user models.User
-	err = stm.QueryRow(accountHost, accountName).Scan(&user.Host, &user.Name)
-	if err == sql.ErrNoRows {
-		return nil, nil
+	err = dbmap.SelectOne(&user, "SELECT Host, User FROM mysql.user WHERE Host = ? AND User = ?", accountHost, accountName)
+	if err != nil {
+		return nil, err
 	}
 
 	return &user, nil
