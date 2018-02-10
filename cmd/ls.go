@@ -38,12 +38,12 @@ func ls(cmd *cobra.Command, args []string) error {
 
 	s := spinner.New(spinner.CharSets[9], 100*time.Millisecond)
 	s.Start()
-	defer s.Stop()
 
 	dao := factories.FactoryUserDao("mysql", &c)
 
 	users, err := dao.GetAllUsers()
 	if err != nil {
+		s.Stop()
 		return err
 	}
 
@@ -54,8 +54,7 @@ func ls(cmd *cobra.Command, args []string) error {
 		table.Append([]string{v.Host, v.Name})
 	}
 
-	//In order to ensure the progress display area
-	fmt.Println("")
+	s.Stop()
 	table.Render()
 
 	return nil

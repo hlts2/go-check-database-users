@@ -49,14 +49,15 @@ func root(cmd *cobra.Command, args []string) error {
 
 	s := spinner.New(spinner.CharSets[9], 100*time.Millisecond)
 	s.Start()
-	defer s.Stop()
 
 	dao := factories.FactoryUserDao("mysql", &c)
 	user, err := dao.GetUser(accountName, accountHost)
 	if err != nil {
+		s.Stop()
 		return err
 	}
 
+	s.Stop()
 	if user != nil {
 		fmt.Printf("Database User OK: user '%s'@'%s' exist\n", accountName, accountHost)
 	} else {
@@ -69,7 +70,7 @@ func root(cmd *cobra.Command, args []string) error {
 //Execute run command
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
-		fmt.Fprintln(os.Stderr, err)
+		fmt.Println(err)
 		os.Exit(1)
 	}
 }
