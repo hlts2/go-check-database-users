@@ -14,7 +14,7 @@ import (
 
 var lsCmd = &cobra.Command{
 	Use:   "ls",
-	Short: "List for Mysql users",
+	Short: "List for database users",
 	Run: func(cmd *cobra.Command, args []string) {
 		if err := ls(cmd, args); err != nil {
 			fmt.Fprintln(os.Stderr, err)
