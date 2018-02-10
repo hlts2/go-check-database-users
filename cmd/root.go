@@ -12,7 +12,7 @@ import (
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "go-check-mysql-users",
+	Use:   "go-check-database-users",
 	Short: "A CLI tool for checking mysql user",
 	Run: func(cmd *cobra.Command, args []string) {
 		if err := root(cmd, args); err != nil {
