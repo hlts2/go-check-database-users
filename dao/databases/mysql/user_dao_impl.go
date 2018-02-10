@@ -25,8 +25,10 @@ func (u UserDaoImpl) GetAllUsers() (models.Users, error) {
 
 	var users models.Users
 	_, err = dbmap.Select(&users, "SELECT Host, User FROM mysql.user")
-	if err != nil {
+	if err == sql.ErrNoRows {
 		return nil, err
+	} else if err != nil {
+		return nil, nil
 	}
 
 	return users, nil
@@ -42,7 +44,9 @@ func (u UserDaoImpl) GetUser(accountName string, accountHost string) (*models.Us
 
 	var user models.User
 	err = dbmap.SelectOne(&user, "SELECT Host, User FROM mysql.user WHERE Host = ? AND User = ?", accountHost, accountName)
-	if err != nil {
+	if err == sql.ErrNoRows {
+		return nil, nil
+	} else if err != nil {
 		return nil, err
 	}
 
