@@ -7,15 +7,15 @@ import (
 )
 
 type mysqlConfig struct {
-	*config.Config
+	config.Config
 }
 
-//NewMysqlConfig creates mysqlConfig instance
-func NewMysqlConfig(c *config.Config) config.DBConfig {
-	return &mysqlConfig{c}
+//GetMysqlConfig creates mysqlConfig instance
+func GetMysqlConfig(c config.Config) config.DBConfig {
+	return mysqlConfig{c}
 }
 
 //DSN returns database source name
-func (c *mysqlConfig) DSN() string {
+func (c mysqlConfig) DSN() string {
 	return fmt.Sprintf("%s:%s@tcp(%s:%d)/", c.User, c.Password, c.Host, c.Port)
 }

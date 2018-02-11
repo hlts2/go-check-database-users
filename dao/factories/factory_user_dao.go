@@ -7,12 +7,12 @@ import (
 )
 
 //FactoryUserDao creates User Dao
-func FactoryUserDao(s string, c *config.Config) interfaces.UserDao {
+func FactoryUserDao(s string, c config.Config) interfaces.UserDao {
 	var i interfaces.UserDao
 	switch s {
 	case "mysql":
 		i = mysql.UserDaoImpl{
-			mysql.NewMysqlConfig(c),
+			mysql.GetMysqlConfig(c),
 		}
 	case "postgre":
 		//TODO

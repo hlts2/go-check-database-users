@@ -40,7 +40,7 @@ func ls(cmd *cobra.Command, args []string) error {
 	s := spinner.New(spinner.CharSets[9], 100*time.Millisecond)
 	s.Start()
 
-	dao := factories.FactoryUserDao(dbms, &c)
+	dao := factories.FactoryUserDao(dbms, c)
 	if dao == nil {
 		return errors.New("Invaild database management system")
 	}
