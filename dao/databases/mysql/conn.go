@@ -17,5 +17,5 @@ func GetMysqlConfig(c config.Config) config.DBConfig {
 
 //DSN returns database source name
 func (c mysqlConfig) DSN() string {
-	return fmt.Sprintf("%s:%s@tcp(%s:%d)/", c.User, c.Password, c.Host, c.Port)
+	return fmt.Sprintf("%s:%s@tcp(%s:%d)/?parseTime=true", c.User, c.Password, c.Host, c.Port)
 }
