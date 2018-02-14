@@ -32,11 +32,11 @@ var accountName string
 var accountHost string
 
 func init() {
-	rootCmd.PersistentFlags().StringVarP(&host, "Host", "H", "localhost", "Hostname（localhost）")
+	rootCmd.PersistentFlags().StringVarP(&host, "Host", "H", "localhost", "Hostname")
 	rootCmd.PersistentFlags().IntVarP(&port, "port", "p", 3306, "Port（3306）")
-	rootCmd.PersistentFlags().StringVarP(&user, "user", "u", "root", "Username（root)")
+	rootCmd.PersistentFlags().StringVarP(&user, "user", "u", "root", "Username")
 	rootCmd.PersistentFlags().StringVarP(&password, "password", "P", "", "Password")
-	rootCmd.PersistentFlags().StringVarP(&dbms, "dbms", "d", "mysql", "Database management system（mysql）")
+	rootCmd.PersistentFlags().StringVarP(&dbms, "dbms", "d", "mysql", "Database management system")
 	rootCmd.Flags().StringVarP(&accountName, "account-name", "a", "", "Account user name")
 	rootCmd.Flags().StringVarP(&accountHost, "account-Host", "n", "", "Account host name")
 }
