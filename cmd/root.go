@@ -33,7 +33,7 @@ var accountHost string
 
 func init() {
 	rootCmd.PersistentFlags().StringVarP(&host, "Host", "H", "localhost", "Hostname")
-	rootCmd.PersistentFlags().IntVarP(&port, "port", "p", 3306, "Port（3306）")
+	rootCmd.PersistentFlags().IntVarP(&port, "port", "p", 3306, "Port")
 	rootCmd.PersistentFlags().StringVarP(&user, "user", "u", "root", "Username")
 	rootCmd.PersistentFlags().StringVarP(&password, "password", "P", "", "Password")
 	rootCmd.PersistentFlags().StringVarP(&dbms, "dbms", "d", "mysql", "Database management system")
