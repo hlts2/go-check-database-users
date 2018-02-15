@@ -59,7 +59,7 @@ Database User NG: user 'aaaaa'@'localhost' not found
 
 You can check the list of users by running this comman
 
-```go
+```
 $ go-check-database-users ls -H 192.168.33.10 -p 3306 -d mysql -u root -P root
 +-----------+------+
 |   HOST    | NAME |
