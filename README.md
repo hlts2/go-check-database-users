@@ -4,13 +4,13 @@ go-check-database-users is command line tool for checking the database user
 
 # install
 
-```go
+```
 go get github.com/hlts2/go-check-database-users
 ```
 
 ## CLI Usage
 
-```go
+```
 $ go-check-database-users --help
 
 Usage:
@@ -32,7 +32,7 @@ Flags:
   -u, --user string           Username (default "root")
 ```
 
-```go
+```
 Usage:
   go-check-database-users ls [flags]
 
@@ -51,7 +51,7 @@ Global Flags:
 
 You can check the existence of the user by executing this command
 
-```go
+```
 $ go-check-database-users -H 192.168.33.10 -p 3306 -d mysql -u root -P root  -n localhost -a aaaaa
 Database User NG: user 'aaaaa'@'localhost' not found
 ```
